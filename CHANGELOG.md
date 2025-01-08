@@ -1,3 +1,6 @@
+## 1.9.5 (2025-01-08)
+* Update gradle plugin to support running on devices with 16KB page size
+
 ## 1.9.4 (2024-03-19)
 * Fix issue for the newest Android devices with API 34+
 

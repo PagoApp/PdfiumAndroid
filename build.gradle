@@ -9,7 +9,7 @@ ext {
             targetSdk   : 34,
             compileSdk  : 34,
             versionCode: 3,
-            versionName: '1.9.4'
+            versionName: '1.9.5'
     ]
 }
 
@@ -86,7 +86,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.lion1988dev'
             artifactId = 'PdfiumAndroid'
-            version = "1.9.4"
+            version = "1.9.5"
 
             afterEvaluate {
                 from components.release
