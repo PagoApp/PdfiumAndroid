@@ -1,13 +1,16 @@
 plugins {
-    id 'com.android.library' version '8.7.3'
+    id 'com.android.library' version '8.2.2'
     id 'maven-publish'
+    id("com.jfrog.artifactory") version "5.2.5"
 }
+
+apply from: file('publish.gradle')
 
 ext {
     tools = [
-            minSdk      : 21,
-            targetSdk   : 34,
-            compileSdk  : 34,
+            minSdk     : 21,
+            targetSdk  : 34,
+            compileSdk : 34,
             versionCode: 3,
             versionName: '1.9.4'
     ]
@@ -16,6 +19,13 @@ ext {
 group "com.github.lion1988dev"
 
 android {
+    android.libraryVariants.all { variant ->
+        variant.outputs.all {
+            // Rename output variant to whatever you want & it would get uploaded as library
+            outputFileName = "pdfium-android-release.aar" //I.e. myLib.jar
+        }
+    }
+
     namespace "com.shockwave.pdfium"
 
     compileSdk rootProject.tools.compileSdk
@@ -52,15 +62,6 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    publishing {
-        publishing {
-            singleVariant("release") {
-                withSourcesJar()
-                withJavadocJar()
-            }
-        }
-    }
-
     ndkVersion '28.0.12674087'
 
     externalNativeBuild {
@@ -79,18 +80,4 @@ android {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
-}
-
-publishing {
-    publications {
-        release(MavenPublication) {
-            groupId = 'com.github.lion1988dev'
-            artifactId = 'PdfiumAndroid'
-            version = "1.9.4"
-
-            afterEvaluate {
-                from components.release
-            }
-        }
-    }
 }
